@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Status | Garena Top Up Center</title>
+    <link rel="icon" type="image/png" href="images/garena-symbol-logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- Canvas Confetti for Celebration Animation -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .status-container {
+            max-width: 780px;
+            margin: 50px auto 80px auto;
+            text-align: center;
+            padding: 0 15px;
+        }
+
+        @media (max-width: 768px) {
+            .status-container {
+                margin: 15px auto 30px auto;
+                padding: 0 10px;
+                max-width: 95%;
+            }
+            .pending-card, .success-card {
+                padding: 24px 14px;
+                border-radius: 10px;
+            }
+            .spinner-icon {
+                width: 48px;
+                height: 48px;
+                border-width: 3px;
+                margin-bottom: 14px;
+            }
+            .success-badge-icon {
+                width: 56px;
+                height: 56px;
+                font-size: 28px;
+                margin-bottom: 12px;
+            }
+            .pending-title, .congrats-title {
+                font-size: 17px;
+                margin-bottom: 6px;
+            }
+            .transaction-id-text, .pending-desc, .congrats-subtitle {
+                font-size: 11px;
+            }
+            .receipt-table th, .receipt-table td {
+                padding: 8px 6px;
+                font-size: 11px;
+            }
+            .btn-home-receipt {
+                padding: 10px 0;
+                font-size: 13px;
+            }
+        }
+
+        /* 1. Pending Transaction Card Styling */
+        .pending-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 50px 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            border: 1px solid #eaeaea;
+        }
+
+        .spinner-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            border: 5px solid #fff0f0;
+            border-top: 5px solid #ff9800;
+            margin: 0 auto 24px auto;
+            animation: spin 1.2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .pending-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 8px;
+        }
+
+        .transaction-id-text {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 24px;
+        }
+
+        .pending-desc {
+            font-size: 14px;
+            color: #666;
+            max-width: 480px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* 2. Success Receipt Card Styling (Shown after 5s) */
+        .success-card {
+            display: none;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 40px 36px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 1px solid #e1f5fe;
+            animation: popSuccess 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+        }
+
+        @keyframes popSuccess {
+            from { transform: scale(0.85); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .success-badge-icon {
+            width: 80px;
+            height: 80px;
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin: 0 auto 20px auto;
+            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.2);
+        }
+
+        .congrats-title {
+            font-size: 26px;
+            font-weight: 800;
+            color: #2e7d32;
+            margin-bottom: 6px;
+        }
+
+        .congrats-subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .receipt-box {
+            background: #fafafa;
+            border: 1px dashed #dcdcdc;
+            border-radius: 10px;
+            padding: 20px 24px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .receipt-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            color: #555;
+        }
+
+        .receipt-row:last-child {
+            border-bottom: none;
+        }
+
+        .receipt-row .val {
+            font-weight: 700;
+            color: #222;
+        }
+
+        .btn-back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #e62222;
+            color: #ffffff;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(230, 34, 34, 0.3);
+            transition: background 0.2s;
+        }
+
+        .btn-back-home:hover {
+            background-color: #cc1f1f;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navbar -->
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="brand" style="text-decoration: none;">
+                <img src="images/garena-logoandname.png" alt="Garena Logo" class="brand-logo">
+                <span class="divider">|</span>
+                <span class="brand-subtitle">Official Top Up Center</span>
+            </a>
+            <div class="user-dp-container">
+                <div class="dp-circle">
+                    <img src="images/freefire-game-logo.png" alt="User DP" class="user-dp-img">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="status-container">
+            <!-- 1. Pending State (Initial view) -->
+            <div class="pending-card" id="pendingCard">
+                <div class="spinner-icon"></div>
+                <h2 class="pending-title">Transaction Pending</h2>
+                <div class="transaction-id-text">
+                    Transaction ID: <span id="pendingTxId">17286877120421987554</span> <i class="fa-regular fa-copy" style="cursor: pointer;" title="Copy ID"></i>
+                </div>
+                <p class="pending-desc">The transaction has been created and is pending for the result. Please be patient and check the result in Purchase History later.</p>
+            </div>
+
+            <!-- 2. Success Receipt State (Revealed after 5 seconds with animation) -->
+            <div class="success-card" id="successCard">
+                <div class="success-badge-icon"><i class="fa-solid fa-circle-check"></i></div>
+                <h1 class="congrats-title">Congratulations!</h1>
+                <p class="congrats-subtitle">Your top-up transaction has been completed successfully.</p>
+
+                <div class="receipt-box">
+                    <div class="receipt-row">
+                        <span>Transaction ID</span>
+                        <span class="val" id="receiptTxId">17286877120421987554</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span>Item Purchased</span>
+                        <span class="val" id="receiptItem">7,130 Diamond</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span>Amount Paid</span>
+                        <span class="val" id="receiptPrice">Rs. 10,000</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span>Payment Method</span>
+                        <span class="val" id="receiptMethod">Konnect</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span>Player ID</span>
+                        <span class="val" id="receiptUserId">2312670066</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span>Status</span>
+                        <span class="val" style="color: #2e7d32;">COMPLETED</span>
+                    </div>
+                </div>
+
+                <a href="index.html" class="btn-back-home"><i class="fa-solid fa-house"></i> Go Back to Home Page</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <p>&copy; Garena Online. All rights reserved.</p>
+            </div>
+            <div class="footer-right">
+                <a href="faq.html">FAQ</a>
+                <span class="footer-sep">|</span>
+                <a href="help-center.html">Help Center</a>
+                <span class="footer-sep">|</span>
+                <a href="terms.html">Terms and Conditions</a>
+                <span class="footer-sep">|</span>
+                <a href="privacy.html">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const ref = params.get('ref') || '17286877120421987554';
+            const price = params.get('price') || localStorage.getItem('checkout_final_price') || '10000';
+            const method = params.get('method') || localStorage.getItem('checkout_method') || 'Konnect';
+            const item = localStorage.getItem('checkout_amount') || '7,130 Diamond';
+            const userId = localStorage.getItem('checkout_userId') || '2312670066';
+
+            const cleanRef = ref.replace('#', '');
+            document.getElementById('pendingTxId').textContent = cleanRef;
+            document.getElementById('receiptTxId').textContent = cleanRef;
+            document.getElementById('receiptItem').textContent = item;
+            document.getElementById('receiptPrice').textContent = `Rs. ${parseInt(price).toLocaleString()}`;
+            document.getElementById('receiptMethod').textContent = method;
+            document.getElementById('receiptUserId').textContent = userId;
+
+            // Timer for 5 seconds to convert Pending -> Congratulations Success Receipt Page
+            setTimeout(() => {
+                document.getElementById('pendingCard').style.display = 'none';
+                const successCard = document.getElementById('successCard');
+                successCard.style.display = 'block';
+
+                // Confetti fireworks animation
+                if (typeof confetti === 'function') {
+                    confetti({
+                        particleCount: 120,
+                        spread: 80,
+                        origin: { y: 0.6 }
+                    });
+                }
+            }, 5000);
+        });
+    </script>
+</body>
+</html>

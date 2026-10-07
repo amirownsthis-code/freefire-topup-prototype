@@ -1,0 +1,14 @@
+# Local settings and secrets
+.env
+.env.*
+!.env.example
+
+# Review and setup archives
+/freefire-review.zip
+/FreeFire_GitHub_Setup.zip
+
+# OS files and logs
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.log

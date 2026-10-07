@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garena | Official Top Up Center</title>
+    <!-- Favicon (Garena Symbol Logo for browser address/tab bar) -->
+    <link rel="icon" type="image/png" href="images/garena-symbol-logo.png">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Fixed Header / Navbar -->
+    <header class="navbar">
+        <div class="navbar-container">
+            <div class="brand">
+                <img src="images/garena-logoandname.png" alt="Garena Logo" class="brand-logo">
+                <span class="divider">|</span>
+                <span class="brand-subtitle">Official Top Up Center</span>
+            </div>
+            <!-- Profile / DP Placeholder Reserved -->
+            <div class="user-dp-container" id="navDpBtn" title="User Profile / DP">
+                <div class="dp-circle" id="navDpCircle">
+                    <svg viewBox="0 0 24 24" fill="currentColor" id="defaultDpSvg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
+                    <img src="images/freefire-game-logo.png" alt="User DP" id="userLoggedInDpImg" class="user-dp-img" style="display: none;">
+                </div>
+
+                <!-- Dropdown profile menu popping out smoothly from circle -->
+                <div class="dp-dropdown-menu" id="dpDropdownMenu">
+                    <div class="dp-dropdown-header">
+                        <img src="images/freefire-game-logo.png" alt="User Avatar" class="dp-dropdown-avatar">
+                        <span class="dp-dropdown-username" id="dropdownUsername">『SRG』PATHAN¹</span>
+                    </div>
+                    <div class="dp-dropdown-body">
+                        <a href="#" id="dropdownHelpBtn"><i class="fa-regular fa-circle-question"></i> Help Center</a>
+                        <a href="#" id="dropdownLogoutBtn" class="logout-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+
+        <!-- 1. Custom 3-Panel Split Banner Carousel Section -->
+        <section class="banner-carousel-section">
+            <div class="carousel-container">
+                <button class="carousel-arrow prev-btn" id="prevBtn"><i class="fa-solid fa-chevron-left"></i></button>
+                
+                <div class="carousel">
+                    <!-- Left side image of the other banner -->
+                    <div class="side-banner left-side">
+                        <img id="leftImg" src="images/sale-banner-left-side.png" alt="Left Side Banner">
+                        <div class="side-overlay left-overlay"></div>
+                    </div>
+
+                    <!-- Center active banner -->
+                    <div class="center-banner">
+                        <img id="centerImg" src="images/naruto-banner.png" alt="Center Banner">
+                    </div>
+
+                    <!-- Right side image of the other banner -->
+                    <div class="side-banner right-side">
+                        <img id="rightImg" src="images/sale-banner-right-side.png" alt="Right Side Banner">
+                        <div class="side-overlay right-overlay"></div>
+                    </div>
+                </div>
+
+                <button class="carousel-arrow next-btn" id="nextBtn"><i class="fa-solid fa-chevron-right"></i></button>
+
+                <!-- Navigation Dots -->
+                <div class="carousel-dots">
+                    <span class="dot active" data-index="0"></span>
+                    <span class="dot" data-index="1"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Clean Fixed Game Banner (Strictly Clean - NO overlay text or game logo) -->
+        <section class="game-banner-section">
+            <div class="game-banner-card">
+                <img src="images/freefire-fixed-banner.png" alt="Free Fire Banner" class="banner-bg">
+            </div>
+        </section>
+
+        <div class="topup-container">
+            <!-- Section 1: Login / Account Card -->
+            <section class="step-section" id="step-login">
+                <div class="step-header">
+                    <span class="step-number">1</span>
+                    <h2 id="step1Title">Login</h2>
+                    <a href="#" class="step1-logout-link" id="step1LogoutBtn" style="display: none;"><i class="fa-solid fa-right-left"></i> Logout</a>
+                </div>
+                
+                <div class="login-card" id="login-box">
+                    <div class="player-id-form">
+                        <label for="player-id">Player ID <i class="fa-regular fa-question-circle" id="mainHelpIcon" title="Where to find Player ID?"></i></label>
+                        <div class="input-group">
+                            <input type="text" id="player-id" placeholder="Please enter player ID here" maxlength="11">
+                            <button class="btn-login" id="btn-player-login">Login</button>
+                        </div>
+                        <div class="login-warning-text" id="loginWarningText">Please enter your Player ID to login before purchasing.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: Top-up Amount -->
+            <section class="step-section" id="step-topup">
+                <div class="step-header">
+                    <span class="step-number">2</span>
+                    <h2>Top-up Amount</h2>
+                </div>
+
+                <!-- Tabs: Purchase / Redeem -->
+                <div class="topup-tabs">
+                    <button class="tab-btn active" data-tab="purchase">Purchase</button>
+                    <button class="tab-btn" data-tab="redeem">Redeem</button>
+                </div>
+
+                <!-- Tab Content: Purchase -->
+                <div class="tab-content active" id="tab-purchase">
+                    <!-- Standard Diamond Grid -->
+                    <div class="diamond-grid">
+                        <div class="diamond-card" data-amount="13" data-name="13 Diamond" data-price="50">
+                            <img src="images/diamond-png.png" alt="Diamond" class="diamond-img">
+                            <span class="diamond-count">13</span>
+                        </div>
+                        <div class="diamond-card" data-amount="35" data-name="35 Diamond" data-price="50">
+                            <img src="images/diamond-png.png" alt="Diamond" class="diamond-img">
+                            <span class="diamond-count">35</span>
+                        </div>
+                        <div class="diamond-card" data-amount="70" data-name="70 Diamond" data-price="100">
+                            <img src="images/diamond-png.png" alt="Diamond" class="diamond-img">
+                            <span class="diamond-count">70</span>
+                        </div>
+                        <div class="diamond-card" data-amount="140" data-name="140 Diamond" data-price="200">
+                            <img src="images/diamond-png.png" alt="Diamond" class="diamond-img">
+                            <span class="diamond-count">140</span>
+                        </div>
+                        <div class="diamond-card" data-amount="355" data-name="355 Diamond" data-price="500">
+                            <img src="images/diamond-png.png" alt="Diamond" class="diamond-img">
+                            <span class="diamond-count">355</span>
+                        </div>
+                        <div class="diamond-card" data-amount="713" data-name="713 Diamond" data-price="1000">
+                            <img src="images/diamond-png.png" alt="Diamond" class="diamond-img">
+                            <span class="diamond-count">713</span>
+                        </div>
+                        <div class="diamond-card" data-amount="1426" data-name="1,426 Diamond" data-price="2000">
+                            <img src="images/diamond-png.png" alt="Diamond" class="diamond-img">
+                            <span class="diamond-count">1,426</span>
+                        </div>
+                        <div class="diamond-card" data-amount="3565" data-name="3,565 Diamond" data-price="5000">
+                            <img src="images/diamond-png.png" alt="Diamond" class="diamond-img">
+                            <span class="diamond-count">3,565</span>
+                        </div>
+                        <div class="diamond-card" data-amount="7130" data-name="7,130 Diamond" data-price="10000">
+                            <img src="images/diamond-png.png" alt="Diamond" class="diamond-img">
+                            <span class="diamond-count">7,130</span>
+                        </div>
+                        <div class="diamond-card" data-amount="14260" data-name="14,260 Diamond" data-price="20000">
+                            <img src="images/diamond-png.png" alt="Diamond" class="diamond-img">
+                            <span class="diamond-count">14,260</span>
+                        </div>
+                    </div>
+
+                    <!-- Special Deals Section (Strict 4 items per row layout) -->
+                    <div class="special-deals-container">
+                        <h3 class="section-subtitle">Special Deals</h3>
+                        <div class="deals-grid">
+                            <div class="deal-card" data-name="Weekly Membership" data-price="220" data-amount="Weekly Membership">
+                                <div class="deal-img-wrapper">
+                                    <img src="images/weekly-membership.png" alt="Weekly Membership">
+                                </div>
+                                <div class="deal-footer">
+                                    <span>Weekly Membership</span>
+                                    <i class="fa-solid fa-circle-info info-icon"></i>
+                                </div>
+                            </div>
+                            <div class="deal-card" data-name="Monthly Membership" data-price="800" data-amount="Monthly Membership">
+                                <div class="deal-img-wrapper">
+                                    <img src="images/monthly-membership.png" alt="Monthly Membership">
+                                </div>
+                                <div class="deal-footer">
+                                    <span>Monthly Membership</span>
+                                    <i class="fa-solid fa-circle-info info-icon"></i>
+                                </div>
+                            </div>
+                            <div class="deal-card" data-name="Weekly Lite" data-price="70" data-amount="Weekly Lite">
+                                <div class="deal-img-wrapper">
+                                    <img src="images/weekly-lite.png" alt="Weekly Lite">
+                                </div>
+                                <div class="deal-footer">
+                                    <span>Weekly Lite</span>
+                                    <i class="fa-solid fa-circle-info info-icon"></i>
+                                </div>
+                            </div>
+
+                            <!-- Level Up Package Level 6 (4th item in first row) -->
+                            <div class="deal-card levelup-card logged-in-only" data-name="Level Up Package - Level 6" data-price="150" data-amount="Level Up Package - Level 6" style="display: none;">
+                                <div class="deal-img-wrapper">
+                                    <img src="images/level-up-package.png" alt="Level Up Package">
+                                </div>
+                                <div class="deal-footer">
+                                    <span>Level Up Package - Level 6</span>
+                                    <i class="fa-solid fa-circle-info info-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Extended Level Up Packages Row (4 in a row, row-wise layout) -->
+                        <div class="levelup-extended-container logged-in-only" style="display: none; margin-top: 16px;">
+                            <div class="deals-grid">
+                                <div class="deal-card levelup-card" data-name="Level Up Package - Level 10" data-price="200" data-amount="Level Up Package - Level 10">
+                                    <div class="deal-img-wrapper">
+                                        <img src="images/level-up-package.png" alt="Level Up Package Level 10">
+                                    </div>
+                                    <div class="deal-footer">
+                                        <span>Level Up Package - Level 10</span>
+                                        <i class="fa-solid fa-circle-info info-icon"></i>
+                                    </div>
+                                </div>
+                                <div class="deal-card levelup-card" data-name="Level Up Package - Level 15" data-price="250" data-amount="Level Up Package - Level 15">
+                                    <div class="deal-img-wrapper">
+                                        <img src="images/level-up-package.png" alt="Level Up Package Level 15">
+                                    </div>
+                                    <div class="deal-footer">
+                                        <span>Level Up Package - Level 15</span>
+                                        <i class="fa-solid fa-circle-info info-icon"></i>
+                                    </div>
+                                </div>
+                                <div class="deal-card levelup-card" data-name="Level Up Package - Level 20" data-price="300" data-amount="Level Up Package - Level 20">
+                                    <div class="deal-img-wrapper">
+                                        <img src="images/level-up-package.png" alt="Level Up Package Level 20">
+                                    </div>
+                                    <div class="deal-footer">
+                                        <span>Level Up Package - Level 20</span>
+                                        <i class="fa-solid fa-circle-info info-icon"></i>
+                                    </div>
+                                </div>
+                                <div class="deal-card levelup-card" data-name="Level Up Package - Level 25" data-price="350" data-amount="Level Up Package - Level 25">
+                                    <div class="deal-img-wrapper">
+                                        <img src="images/level-up-package.png" alt="Level Up Package Level 25">
+                                    </div>
+                                    <div class="deal-footer">
+                                        <span>Level Up Package - Level 25</span>
+                                        <i class="fa-solid fa-circle-info info-icon"></i>
+                                    </div>
+                                </div>
+                                <!-- Extra Level 30 card revealed by See More -->
+                                <div class="deal-card levelup-card" id="level30Card" data-name="Level Up Package - Level 30" data-price="400" data-amount="Level Up Package - Level 30" style="display: none;">
+                                    <div class="deal-img-wrapper">
+                                        <img src="images/level-up-package.png" alt="Level Up Package Level 30">
+                                    </div>
+                                    <div class="deal-footer">
+                                        <span>Level Up Package - Level 30</span>
+                                        <i class="fa-solid fa-circle-info info-icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="see-more-wrapper">
+                                <button class="see-more-btn" id="seeMoreBtn">See More <i class="fa-solid fa-chevron-down"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Content: Redeem -->
+                <div class="tab-content" id="tab-redeem">
+                    <div class="redeem-container">
+                        <!-- Un-logged in redeem state -->
+                        <div class="redeem-card-box" id="unloggedRedeemBox">
+                            <div class="garena-card-brand">
+                                <img src="images/garena-logoandname.png" alt="Garena Card" class="redeem-card-logo">
+                                <span class="card-label">Garena Card</span>
+                            </div>
+                            <a href="#" class="instruction-link">Instruction</a>
+                            <button class="btn-login redeem-login-btn" id="redeemLoginBtn">Login</button>
+                        </div>
+
+                        <!-- Logged-in Redeem Form State (With Prepaid Card Password Input & Confirm Button) -->
+                        <div class="redeem-logged-in-form" id="loggedInRedeemForm" style="display: none;">
+                            <div class="garena-card-brand">
+                                <img src="images/garena-logoandname.png" alt="Garena Card" class="redeem-card-logo">
+                                <span class="card-label">Garena Card</span>
+                            </div>
+                            <a href="#" class="instruction-link">Instruction</a>
+                            
+                            <div class="prepaid-password-group">
+                                <label for="prepaidPassword">Garena Prepaid Card Password</label>
+                                <input type="text" id="prepaidPassword" placeholder="Garena Prepaid Card Password">
+                                <button class="btn-login confirm-redeem-btn" id="confirmRedeemBtn">Confirm</button>
+                            </div>
+                        </div>
+
+                        <div class="redeem-rates-list">
+                            <div class="redeem-item" data-name="35 Diamond Card" data-price="50" data-amount="35">
+                                <div class="redeem-left">
+                                    <img src="images/diamond-png.png" alt="Diamond" class="diamond-icon-sm">
+                                    <span>35 Diamond</span>
+                                </div>
+                                <div class="redeem-right">
+                                    <span class="price">Rs. 50</span>
+                                </div>
+                            </div>
+                            <div class="redeem-item" data-name="70 Diamond Card" data-price="100" data-amount="70">
+                                <div class="redeem-left">
+                                    <img src="images/diamond-png.png" alt="Diamond" class="diamond-icon-sm">
+                                    <span>70 Diamond</span>
+                                </div>
+                                <div class="redeem-right">
+                                    <span class="price">Rs. 100</span>
+                                </div>
+                            </div>
+                            <div class="redeem-item" data-name="140 Diamond Card" data-price="200" data-amount="140">
+                                <div class="redeem-left">
+                                    <img src="images/diamond-png.png" alt="Diamond" class="diamond-icon-sm">
+                                    <span>140 Diamond</span>
+                                </div>
+                                <div class="redeem-right">
+                                    <span class="price">Rs. 200</span>
+                                </div>
+                            </div>
+                            <div class="redeem-item" data-name="355 Diamond Card" data-price="500" data-amount="355">
+                                <div class="redeem-left">
+                                    <img src="images/diamond-png.png" alt="Diamond" class="diamond-icon-sm">
+                                    <span>355 Diamond</span>
+                                </div>
+                                <div class="redeem-right">
+                                    <span class="price">Rs. 500</span>
+                                </div>
+                            </div>
+                            <div class="redeem-item" data-name="713 Diamond Card" data-price="1000" data-amount="713">
+                                <div class="redeem-left">
+                                    <img src="images/diamond-png.png" alt="Diamond" class="diamond-icon-sm">
+                                    <span>713 Diamond</span>
+                                </div>
+                                <div class="redeem-right">
+                                    <span class="price">Rs. 1,000</span>
+                                </div>
+                            </div>
+                            <div class="redeem-item" data-name="1,426 Diamond Card" data-price="2000" data-amount="1,426">
+                                <div class="redeem-left">
+                                    <img src="images/diamond-png.png" alt="Diamond" class="diamond-icon-sm">
+                                    <span>1,426 Diamond</span>
+                                </div>
+                                <div class="redeem-right">
+                                    <span class="price">Rs. 2,000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Channel Notice Notification Banner (Appears when item selected) -->
+            <div class="channel-notice-bar" id="channelNoticeBar">
+                <span>Currently displayed denomination support payment via <strong id="noticeMethodName">Jazz Mobile Billing</strong>. Click reset to remove selection.</span>
+                <button class="btn-reset" id="resetSelectionBtn">Reset</button>
+            </div>
+
+            <!-- Section 3: Payment Method -->
+            <section class="step-section" id="step-payment">
+                <div class="step-header">
+                    <span class="step-number">3</span>
+                    <h2>Payment Method</h2>
+                </div>
+
+                <div class="payment-grid">
+                    <div class="payment-card" data-method="EasyPaisa" data-price-modifier="50">
+                        <img src="images/easypaisa-logo.png" alt="EasyPaisa" class="payment-logo">
+                        <div class="payment-card-details">
+                            <span class="method-name">EasyPaisa</span>
+                            <div class="dynamic-price-tag">
+                                <span class="price-val">Rs. 50</span>
+                                <span class="item-val"><img src="images/diamond-png.png" class="diamond-icon-xs"> <span class="item-val-text">35</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="payment-card" data-method="Konnect" data-price-modifier="50">
+                        <img src="images/konnect-logo.png" alt="Konnect" class="payment-logo">
+                        <div class="payment-card-details">
+                            <span class="method-name">Konnect</span>
+                            <div class="dynamic-price-tag">
+                                <span class="price-val">Rs. 50</span>
+                                <span class="item-val"><img src="images/diamond-png.png" class="diamond-icon-xs"> <span class="item-val-text">35</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="payment-card" data-method="Zong DCB" data-price-modifier="55">
+                        <img src="images/Zong-5G-Logo.png" alt="Zong DCB" class="payment-logo">
+                        <div class="payment-card-details">
+                            <span class="method-name">Zong DCB</span>
+                            <div class="dynamic-price-tag">
+                                <span class="price-val">Rs. 55</span>
+                                <span class="item-val"><img src="images/diamond-png.png" class="diamond-icon-xs"> <span class="item-val-text">35</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="payment-card" data-method="JazzCash" data-price-modifier="50">
+                        <img src="images/jazzcash-logo.png" alt="JazzCash" class="payment-logo">
+                        <div class="payment-card-details">
+                            <span class="method-name">JazzCash</span>
+                            <div class="dynamic-price-tag">
+                                <span class="price-val">Rs. 50</span>
+                                <span class="item-val"><img src="images/diamond-png.png" class="diamond-icon-xs"> <span class="item-val-text">35</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="payment-card relative" data-method="Jazz Mobile Billing" data-price-modifier="55">
+                        <span class="badge-new-golden">NEW</span>
+                        <img src="images/jazz-mobile-billing.png" alt="Jazz Mobile Billing" class="payment-logo">
+                        <div class="payment-card-details">
+                            <span class="method-name">Jazz Mobile Billing</span>
+                            <div class="dynamic-price-tag">
+                                <span class="price-val">Rs. 55</span>
+                                <span class="item-val"><img src="images/diamond-png.png" class="diamond-icon-xs"> <span class="item-val-text">35</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="payment-card" data-method="Telenor Mobile Billing" data-price-modifier="55">
+                        <img src="images/telenor-logo.png" alt="Telenor Mobile Billing" class="payment-logo">
+                        <div class="payment-card-details">
+                            <span class="method-name">Telenor Mobile Billing</span>
+                            <div class="dynamic-price-tag">
+                                <span class="price-val">Rs. 55</span>
+                                <span class="item-val"><img src="images/diamond-png.png" class="diamond-icon-xs"> <span class="item-val-text">35</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Not Available Channels -->
+                <div class="unavailable-channels">
+                    <h4 class="sub-header">Not available channels</h4>
+                    <div class="unavailable-grid">
+                        <div class="payment-card disabled">
+                            <img src="images/alfa-logo.png" alt="Alfa" class="payment-logo">
+                            <span class="disabled-text">Temporarily closed for maintenance</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Checkout Bar (Floating bottom bar containing selected diamond preview & Buy Now button) -->
+                <div class="checkout-bar-container">
+                    <div class="checkout-info">
+                        <div class="selected-item-preview" id="selectedItemPreview" style="display: none;">
+                            <img src="images/diamond-png.png" class="diamond-icon-sm">
+                            <span id="summaryItemText"></span>
+                        </div>
+                        <div class="selected-total-price" id="selectedTotalPrice">
+                            <span>Select Payment Method</span>
+                        </div>
+                    </div>
+                    <button class="btn-buy-now disabled" id="buyNowBtn">
+                        <i class="fa-solid fa-shield-halved"></i> Buy Now
+                    </button>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <p>&copy; Garena Online. All rights reserved.</p>
+            </div>
+            <div class="footer-right">
+                <a href="faq.html">FAQ</a>
+                <span class="footer-sep">|</span>
+                <a href="help-center.html">Help Center</a>
+                <span class="footer-sep">|</span>
+                <a href="terms.html">Terms and Conditions</a>
+                <span class="footer-sep">|</span>
+                <a href="privacy.html">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- POPUP MODAL 1: Split Login Popup -->
+    <div class="modal-overlay" id="navLoginModal">
+        <div class="modal-card split-login-card">
+            <button class="modal-close" id="closeNavModalBtn">&times;</button>
+            <div class="modal-left-banner">
+                <img src="images/login-popup-card-img.png" alt="Garena Promotion">
+                <div class="banner-text-overlay">
+                    <h3>Be gaming tycoon without going broke</h3>
+                    <p>You can get cheaper prices and additional discounts!</p>
+                </div>
+            </div>
+            <div class="modal-right-content">
+                <h2>Login</h2>
+                <p class="subtitle">Login to Garena Top Up Center</p>
+                
+                <div class="player-id-form modal-form">
+                    <label for="modal-player-id">Player ID <i class="fa-regular fa-question-circle" id="modalHelpIcon" title="Where to find Player ID?"></i></label>
+                    <div class="input-group">
+                        <input type="text" id="modal-player-id" placeholder="Please enter player ID here" maxlength="11">
+                        <button class="btn-login" id="modal-btn-login">Login</button>
+                    </div>
+                </div>
+
+                <div class="modal-help-center">
+                    <a href="#" id="helpCenterBtn"><i class="fa-regular fa-circle-question"></i> Help Center</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP MODAL 2: Help Center Information Card -->
+    <div class="modal-overlay" id="helpCenterModal">
+        <div class="modal-card info-modal-card">
+            <button class="modal-close" id="closeHelpModalBtn">&times;</button>
+            <h3><i class="fa-solid fa-circle-info" style="color: #e62222;"></i> Where to find your Player ID?</h3>
+            <div class="help-info-body">
+                <p>1. Open Free Fire game on your mobile device.</p>
+                <p>2. Tap on your avatar icon in the top-left corner of the main lobby.</p>
+                <p>3. Your Player ID (UID) is displayed under your nickname (e.g. 123456789).</p>
+                <p>4. Tap the copy icon next to your ID and paste it into the Player ID input field.</p>
+            </div>
+            <button class="btn-login modal-confirm-btn" id="confirmHelpBtn">Got it</button>
+        </div>
+    </div>
+
+    <!-- POPUP MODAL 3: Buy Now Triggered Login Card -->
+    <div class="modal-overlay" id="buyNowLoginModal">
+        <div class="modal-card buynow-modal-card">
+            <button class="modal-close" id="closeBuyNowModalBtn">&times;</button>
+            <div class="buynow-card-top">
+                <img src="images/buynow-login-card-top-banner.png" alt="Free Fire Promotion Banner" class="buynow-top-bg">
+                <div class="buynow-game-brand">
+                    <img src="images/freefire-game-logo.png" alt="Free Fire Logo" class="buynow-game-logo">
+                    <div class="buynow-brand-info">
+                        <h3>Free Fire</h3>
+                        <p>Login to get the additional promotion</p>
+                    </div>
+                </div>
+            </div>
+            <div class="buynow-card-body">
+                <div class="player-id-form">
+                    <label for="buynow-player-id">Player ID <i class="fa-regular fa-question-circle"></i></label>
+                    <div class="input-group">
+                        <input type="text" id="buynow-player-id" placeholder="Please enter player ID here" maxlength="11">
+                        <button class="btn-login" id="buynow-modal-login-btn">Login</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

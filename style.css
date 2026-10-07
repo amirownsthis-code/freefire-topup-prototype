@@ -1,0 +1,1560 @@
+/* CSS Reset & Variable Setup */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+    background-color: #f5f6f8;
+    color: #333;
+    line-height: 1.5;
+    padding-top: 60px; /* Offset for fixed header */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Fixed Header / Navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar-container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand-logo {
+    height: 28px;
+    width: auto;
+    object-fit: contain;
+}
+
+.divider {
+    color: #dcdcdc;
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.brand-subtitle {
+    font-size: 16px;
+    font-weight: 600;
+    color: #4a4a4a;
+}
+
+/* User DP Circle Placeholder & Smooth Dropdown Menu */
+.user-dp-container {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.dp-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #e2e8f0;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: background-color 0.2s, color 0.2s, transform 0.2s;
+}
+
+.dp-circle svg {
+    width: 36px;
+    height: 36px;
+    fill: #cfd8dc;
+}
+
+.user-dp-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.dp-circle:hover {
+    transform: scale(1.05);
+}
+
+.dp-circle:hover svg {
+    fill: #e62222;
+}
+
+/* DP Dropdown Card - Smooth Popout Animation */
+.dp-dropdown-menu {
+    position: absolute;
+    top: 48px;
+    right: 0;
+    width: 240px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    border: 1px solid #eaeaea;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px) scale(0.95);
+    transform-origin: top right;
+    transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1100;
+}
+
+.dp-dropdown-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+.dp-dropdown-header {
+    background: #e62222;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #ffffff;
+}
+
+.dp-dropdown-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ffffff;
+}
+
+.dp-dropdown-username {
+    font-weight: 700;
+    font-size: 14px;
+    word-break: break-all;
+}
+
+.dp-dropdown-body {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.dp-dropdown-body a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    color: #444;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.dp-dropdown-body a:hover {
+    background: #fdf2f2;
+    color: #e62222;
+}
+
+.dp-dropdown-body a.logout-link {
+    color: #e62222;
+}
+
+/* Step 1 Header Logout Link */
+.step1-logout-link {
+    color: #e62222;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.step1-logout-link:hover {
+    text-decoration: underline;
+}
+
+/* Account Details Box */
+.user-account-details-box {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #ffffff;
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    padding: 16px 20px;
+    max-width: 480px;
+}
+
+.user-account-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.user-account-text h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #222;
+}
+
+.user-account-text p {
+    font-size: 13px;
+    color: #777;
+    margin-top: 2px;
+}
+
+/* Logged In Redeem Form */
+.redeem-logged-in-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 440px;
+    margin-bottom: 30px;
+}
+
+.prepaid-password-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.prepaid-password-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #444;
+}
+
+.prepaid-password-group input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #dcdcdc;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+}
+
+.confirm-redeem-btn {
+    width: 100%;
+    padding: 12px 0;
+    background-color: #f59e9e;
+}
+
+/* See More Button for Level Up Packages */
+.see-more-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+}
+
+.see-more-btn {
+    background: transparent;
+    border: none;
+    color: #e62222;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.see-more-btn:hover {
+    text-decoration: underline;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 1. Custom 3-Panel Split Banner Carousel Section */
+.banner-carousel-section {
+    width: 100%;
+    background-color: #1a1a1c;
+    padding: 24px 0 20px 0;
+    overflow: hidden;
+}
+
+.carousel-container {
+    position: relative;
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+    height: 230px;
+    position: relative;
+    transition: opacity 0.3s ease;
+}
+
+.carousel.switching img {
+    opacity: 0.2;
+}
+
+/* Center Active Banner */
+.center-banner {
+    position: relative;
+    width: 680px;
+    height: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    flex-shrink: 0;
+    z-index: 2;
+}
+
+.center-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.25s ease-in-out;
+}
+
+/* Side Cropped Banners */
+.side-banner {
+    position: relative;
+    width: 250px;
+    height: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.side-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.25s ease-in-out;
+}
+
+/* Dark Overlays */
+.side-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.left-overlay {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.35) 100%);
+}
+
+.right-overlay {
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.35) 100%);
+}
+
+/* Navigation Arrows */
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    backdrop-filter: blur(4px);
+    transition: background 0.2s;
+}
+
+.carousel-arrow:hover {
+    background: rgba(230, 34, 34, 0.8);
+}
+
+.prev-btn { left: 280px; }
+.next-btn { right: 280px; }
+
+/* Pagination Dots */
+.carousel-dots {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ffffff;
+    opacity: 0.4;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.dot.active {
+    background: #e62222;
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+/* 2. Fixed Game Banner */
+.game-banner-section {
+    width: 100%;
+    max-width: 1020px;
+    margin: 24px auto 10px auto;
+    padding: 0 15px;
+}
+
+.game-banner-card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 140px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.banner-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Top Up Container */
+.topup-container {
+    width: 100%;
+    max-width: 1020px;
+    padding: 0 15px 40px 15px;
+}
+
+/* Steps Common Layout */
+.step-section {
+    margin-top: 28px;
+}
+
+.step-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.step-number {
+    background-color: #e62222;
+    color: #ffffff;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.step-header h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #222;
+}
+
+/* 1. Login Card */
+.login-card {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 480px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    border: 1px solid #eaeaea;
+}
+
+.player-id-form label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.player-id-form label i {
+    color: #999;
+    cursor: pointer;
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+}
+
+.input-group input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.25s ease;
+}
+
+.input-group input:focus {
+    border-color: #e62222;
+}
+
+.input-group input.input-error {
+    border-color: #e62222 !important;
+    background-color: #fffafb !important;
+    box-shadow: 0 0 8px rgba(230, 34, 34, 0.2);
+}
+
+.login-warning-text {
+    display: none;
+    font-size: 12px;
+    color: #e62222;
+    margin-top: 8px;
+    font-weight: 500;
+}
+
+.login-warning-text.active {
+    display: block;
+}
+
+.btn-login {
+    background-color: #e62222;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 0 24px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-login:hover {
+    background-color: #cc1f1f;
+}
+
+/* 2. Top-up Amount Tabs */
+.topup-tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    background: #ffffff;
+    border: 1px solid #dcdcdc;
+    color: #444;
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tab-btn.active {
+    border-color: #e62222;
+    color: #e62222;
+    font-weight: 600;
+}
+
+/* Tab Contents */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Diamond Grid */
+.diamond-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 14px;
+    margin-bottom: 30px;
+}
+
+.diamond-card {
+    background: #ffffff;
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    padding: 16px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+}
+
+.diamond-card:hover, 
+.diamond-card.selected,
+.deal-card:hover,
+.deal-card.selected,
+.redeem-item:hover,
+.redeem-item.selected {
+    border: 1.5px solid #e62222 !important;
+    background-color: #fffafb;
+    box-shadow: 0 2px 8px rgba(230, 34, 34, 0.15);
+}
+
+.diamond-img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+}
+
+.diamond-count {
+    font-weight: 700;
+    font-size: 15px;
+    color: #333;
+}
+
+/* Special Deals - Strict 4 columns grid layout */
+.special-deals-container {
+    margin-top: 20px;
+}
+
+.section-subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 14px;
+    font-weight: 600;
+}
+
+.deals-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.deal-card {
+    background: #ffffff;
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+}
+
+.deal-img-wrapper {
+    width: 100%;
+    height: 130px;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.deal-img-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.deal-footer {
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #f0f0f0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+}
+
+.info-icon {
+    display: none;
+}
+
+/* Tab Content: Redeem */
+.redeem-container {
+    background: #ffffff;
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    padding: 24px;
+}
+
+.redeem-card-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    max-width: 400px;
+    margin-bottom: 30px;
+}
+
+.garena-card-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.redeem-card-logo {
+    height: 32px;
+    object-fit: contain;
+}
+
+.card-label {
+    font-weight: 600;
+    color: #333;
+    font-size: 15px;
+}
+
+.instruction-link {
+    color: #0077ff;
+    font-size: 13px;
+    text-decoration: underline;
+    font-style: italic;
+}
+
+.redeem-login-btn {
+    width: 100%;
+    padding: 12px 0;
+    margin-top: 8px;
+}
+
+.redeem-rates-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 600px;
+}
+
+.redeem-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid #f0f0f0;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.redeem-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.diamond-icon-sm {
+    width: 20px;
+    height: 20px;
+}
+
+.redeem-right .price {
+    font-weight: 600;
+    font-size: 14px;
+    color: #444;
+}
+
+/* Channel Notice Bar */
+.channel-notice-bar {
+    display: none;
+    background: #fdf2f2;
+    border: 1px solid #f8d7da;
+    border-radius: 6px;
+    padding: 10px 16px;
+    margin-top: 24px;
+    font-size: 13px;
+    color: #555;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.channel-notice-bar.active {
+    display: flex;
+}
+
+.channel-notice-bar strong {
+    color: #e62222;
+}
+
+.btn-reset {
+    background: transparent;
+    border: 1px solid #e62222;
+    color: #e62222;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-reset:hover {
+    background: #e62222;
+    color: #fff;
+}
+
+/* 3. Payment Method Section */
+.payment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.payment-card {
+    background: #ffffff;
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    padding: 24px 20px;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.payment-card.selected {
+    border: 1.5px solid #e62222 !important;
+    background-color: #fffafb;
+    box-shadow: 0 2px 8px rgba(230, 34, 34, 0.15);
+}
+
+.payment-card.disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+    border-color: #eee;
+}
+
+.payment-logo {
+    height: 32px;
+    max-width: 65px;
+    object-fit: contain;
+}
+
+.payment-card-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.method-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+}
+
+.dynamic-price-tag {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+    margin-top: 2px;
+}
+
+.dynamic-price-tag.active {
+    display: flex;
+}
+
+.diamond-icon-xs {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+}
+
+/* Golden NEW Badge for Jazz Mobile Billing */
+.badge-new-golden {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #ffd700;
+    color: #000000;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-bottom-left-radius: 4px;
+    border-top-right-radius: 8px;
+    letter-spacing: 0.5px;
+}
+
+.unavailable-channels {
+    margin-top: 20px;
+}
+
+.sub-header {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.disabled-text {
+    font-size: 12px !important;
+    color: #888 !important;
+    font-weight: 400 !important;
+}
+
+/* Checkout / Buy Now Floating Bar (Hidden by default, shown ONLY when item is selected) */
+.checkout-bar-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #eaeaea;
+}
+
+.checkout-bar-container.active {
+    display: flex;
+}
+
+.checkout-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.selected-item-preview {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    color: #333;
+    font-size: 15px;
+}
+
+.selected-total-price {
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+}
+
+.selected-total-price strong {
+    color: #e62222;
+    font-size: 16px;
+}
+
+.btn-buy-now {
+    background-color: #e62222;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 32px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-buy-now.disabled {
+    background-color: #f8a5a5;
+    cursor: pointer;
+}
+
+.btn-buy-now.active {
+    background-color: #e62222;
+    box-shadow: 0 4px 12px rgba(230, 34, 34, 0.3);
+}
+
+/* MODALS OVERLAY */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(4px);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-card {
+    background: #ffffff;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    max-width: 90%;
+    animation: modalPop 0.25s ease-out;
+}
+
+@keyframes modalPop {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modal-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: #888;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.modal-close:hover {
+    color: #333;
+}
+
+/* POPUP 1: Split Login Modal */
+.split-login-card {
+    display: flex;
+    width: 720px;
+    height: 420px;
+}
+
+.modal-left-banner {
+    width: 45%;
+    position: relative;
+    overflow: hidden;
+}
+
+.modal-left-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.banner-text-overlay {
+    position: absolute;
+    bottom: 24px;
+    left: 20px;
+    right: 20px;
+    color: #ffffff;
+    z-index: 2;
+}
+
+.banner-text-overlay h3 {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 6px;
+}
+
+.banner-text-overlay p {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.modal-right-content {
+    width: 55%;
+    padding: 36px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.modal-right-content h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #222;
+}
+
+.modal-right-content .subtitle {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 24px;
+}
+
+.modal-form {
+    margin-bottom: 20px;
+}
+
+.modal-help-center {
+    margin-top: 10px;
+}
+
+.modal-help-center a {
+    color: #666;
+    font-size: 13px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.modal-help-center a:hover {
+    color: #e62222;
+}
+
+/* POPUP 2: Info Modal */
+.info-modal-card {
+    width: 440px;
+    padding: 24px;
+}
+
+.info-modal-card h3 {
+    font-size: 17px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.help-info-body {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.modal-confirm-btn {
+    width: 100%;
+    padding: 10px 0;
+}
+
+/* POPUP 3: Buy Now Triggered Login Card */
+.buynow-modal-card {
+    width: 420px;
+}
+
+.buynow-card-top {
+    position: relative;
+    height: 140px;
+    overflow: hidden;
+}
+
+.buynow-top-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.buynow-game-brand {
+    position: absolute;
+    bottom: 14px;
+    left: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 2;
+}
+
+.buynow-game-logo {
+    width: 54px;
+    height: 54px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.buynow-brand-info h3 {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.buynow-brand-info p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 12px;
+}
+
+.buynow-card-body {
+    padding: 24px 20px;
+}
+
+/* Footer */
+.footer {
+    background: #ffffff;
+    border-top: 1px solid #eaeaea;
+    padding: 20px 0;
+    width: 100%;
+    margin-top: auto;
+}
+
+.footer-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: #888;
+}
+
+.footer-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-right a {
+    color: #888;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-right a:hover {
+    color: #e62222;
+}
+
+.footer-sep {
+    color: #ddd;
+}
+
+/* Comprehensive Proportional Scaling Responsive Design for Mobile Devices */
+@media (max-width: 1024px) {
+    .banner-carousel-section {
+        padding: 16px 0;
+    }
+    .carousel-container {
+        padding: 0 10px;
+    }
+    .carousel {
+        height: 180px;
+    }
+    .center-banner {
+        width: 580px;
+    }
+    .side-banner {
+        width: 170px;
+    }
+    .prev-btn { left: 10px; }
+    .next-btn { right: 10px; }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 50px;
+    }
+    .navbar {
+        height: 50px;
+    }
+    .navbar-container {
+        padding: 0 12px;
+    }
+    .brand-logo {
+        height: 20px;
+    }
+    .brand-subtitle {
+        font-size: 12px;
+    }
+    .dp-circle {
+        width: 30px;
+        height: 30px;
+    }
+
+    /* Carousel proportional scaling */
+    .carousel {
+        height: 130px;
+        gap: 6px;
+    }
+    .center-banner {
+        width: 62%;
+        border-radius: 8px;
+    }
+    .side-banner {
+        width: 18%;
+        border-radius: 8px;
+    }
+    .carousel-arrow {
+        width: 26px;
+        height: 26px;
+        font-size: 10px;
+    }
+
+    /* Fixed Game Banner */
+    .game-banner-section {
+        margin: 14px auto 6px auto;
+    }
+    .game-banner-card {
+        height: 90px;
+        border-radius: 8px;
+    }
+
+    /* Step Headers */
+    .step-section {
+        margin-top: 18px;
+    }
+    .step-header h2 {
+        font-size: 16px;
+    }
+    .step-number {
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
+    }
+
+    /* Step 1 Login Card & Account Details Box */
+    .login-card {
+        padding: 10px 12px;
+        width: 100%;
+        max-width: 360px;
+    }
+    .user-account-details-box {
+        padding: 8px 12px;
+        width: 100%;
+        max-width: 360px;
+        gap: 10px;
+    }
+    .user-account-avatar {
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+    }
+    .user-account-text h4 {
+        font-size: 12px;
+    }
+    .user-account-text p {
+        font-size: 11px;
+    }
+    .player-id-form label {
+        font-size: 12px;
+        margin-bottom: 4px;
+    }
+
+    /* Topup Tabs */
+    .topup-tabs {
+        gap: 8px;
+        margin-bottom: 14px;
+    }
+    .tab-btn {
+        padding: 5px 14px;
+        font-size: 12px;
+    }
+
+    /* Diamond Grid: 4 items per row compact layout */
+    .diamond-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 8px !important;
+    }
+    .diamond-card {
+        padding: 10px 4px;
+        gap: 4px;
+    }
+    .diamond-img {
+        width: 18px;
+        height: 18px;
+    }
+    .diamond-count {
+        font-size: 12px;
+    }
+
+    /* Special Deals Grid: Keep 4 items per row compact layout */
+    .deals-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 6px !important;
+    }
+    .deal-img-wrapper {
+        height: 70px;
+    }
+    .deal-footer {
+        padding: 6px 4px;
+        font-size: 9px;
+    }
+    .info-icon {
+        font-size: 10px;
+    }
+
+    /* Redeem Rates List */
+    .redeem-rates-list {
+        max-width: 100%;
+        gap: 8px;
+    }
+    .redeem-item {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+    .redeem-left {
+        font-size: 12px;
+        gap: 8px;
+    }
+    .diamond-icon-sm {
+        width: 16px;
+        height: 16px;
+    }
+
+    /* Payment Method Grid: Compact multi-column layout */
+    .payment-grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)) !important;
+        gap: 8px !important;
+    }
+    .payment-card {
+        padding: 10px 8px;
+        min-height: 52px;
+        gap: 6px;
+    }
+    .payment-logo {
+        height: 20px;
+        max-width: 42px;
+    }
+    .method-name {
+        font-size: 11px;
+    }
+    .dynamic-price-tag {
+        font-size: 10px;
+        gap: 4px;
+    }
+    .badge-new-golden {
+        font-size: 8px;
+        padding: 1px 4px;
+    }
+
+    /* Input group: Keep button side-by-side, shrink inputs */
+    .input-group {
+        flex-direction: row !important;
+        gap: 6px;
+    }
+    .input-group input {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+    .btn-login {
+        padding: 0 14px;
+        font-size: 12px;
+        width: auto !important;
+    }
+
+    /* Bottom Checkout Bar */
+    .checkout-bar-container {
+        padding: 10px 14px;
+    }
+    .selected-item-preview {
+        font-size: 13px;
+    }
+    .selected-total-price {
+        font-size: 12px;
+    }
+    .btn-buy-now {
+        padding: 10px 20px;
+        font-size: 13px;
+    }
+
+    /* Modals Responsive scaling */
+    .split-login-card {
+        flex-direction: row !important;
+        width: 95%;
+        height: 280px;
+    }
+    .modal-left-banner {
+        width: 40%;
+        height: 100%;
+    }
+    .modal-right-content {
+        width: 60%;
+        padding: 14px;
+    }
+    .modal-right-content h3 {
+        font-size: 15px;
+    }
+    .modal-right-content p {
+        font-size: 11px;
+    }
+    .buynow-modal-card {
+        width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Extreme small screen scaling: Maintain 4 items in row for diamonds & deals */
+    .diamond-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 5px !important;
+    }
+    .diamond-card {
+        padding: 8px 3px;
+        gap: 3px;
+    }
+    .diamond-img {
+        width: 14px;
+        height: 14px;
+    }
+    .diamond-count {
+        font-size: 11px;
+    }
+
+    .deals-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 4px !important;
+    }
+    .deal-img-wrapper {
+        height: 52px;
+    }
+    .deal-footer {
+        padding: 4px 2px;
+    }
+    .deal-footer span {
+        font-size: 8px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    /* Payment Cards: 2 to 3 compact columns */
+    .payment-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 6px !important;
+    }
+    .payment-card {
+        padding: 8px 6px;
+    }
+    .method-name {
+        font-size: 10px;
+    }
+
+    /* Game Banner on small mobile */
+    .game-banner-card {
+        height: 70px;
+    }
+}

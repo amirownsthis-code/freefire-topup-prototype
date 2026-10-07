@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Details | Garena Top Up Center</title>
+    <link rel="icon" type="image/png" href="images/garena-symbol-logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #f5f6f8;
+            position: relative;
+        }
+
+        /* White Background Image Behind Checkout Card */
+        .checkout-bg-layer {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            height: calc(100vh - 60px);
+            background: url('images/promo-code-applying-page-white-background.png') center top no-repeat;
+            background-size: cover;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .checkout-page-container {
+            position: relative;
+            z-index: 2;
+            max-width: 680px;
+            margin: 30px auto 60px auto;
+            padding: 0 15px;
+        }
+
+        .checkout-card {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            border: 1px solid #eaeaea;
+            overflow: hidden;
+        }
+
+        /* Banner Header with Back Button */
+        .checkout-card-header {
+            position: relative;
+            height: 160px;
+        }
+
+        .checkout-top-banner {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .back-nav-btn {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: rgba(0, 0, 0, 0.5);
+            color: #ffffff;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            backdrop-filter: blur(4px);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            transition: background 0.2s;
+            z-index: 5;
+        }
+
+        .back-nav-btn:hover {
+            background: rgba(230, 34, 34, 0.8);
+        }
+
+        /* Semi-Overlapping Free Fire Game Logo */
+        .semi-overlap-logo-wrapper {
+            position: absolute;
+            bottom: -32px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 68px;
+            height: 68px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 3px solid #ffffff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            background: #fff;
+            z-index: 3;
+        }
+
+        .semi-overlap-logo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Responsive styling for Checkout Page */
+        @media (max-width: 768px) {
+            .checkout-page-container {
+                margin: 10px auto 30px auto;
+                padding: 0 10px;
+                max-width: 100%;
+            }
+            .checkout-card-header {
+                height: 100px;
+            }
+            .semi-overlap-logo-wrapper {
+                width: 46px;
+                height: 46px;
+                bottom: -23px;
+                border-radius: 10px;
+            }
+            .checkout-card-body {
+                padding: 28px 14px 16px 14px;
+            }
+            .game-title-text {
+                font-size: 18px;
+                margin-bottom: 12px;
+            }
+            .detail-row {
+                font-size: 12px;
+                padding: 8px 10px;
+            }
+            .form-row {
+                flex-direction: row;
+                gap: 8px;
+            }
+            .form-group label {
+                font-size: 12px;
+            }
+            .form-group input {
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+            .promo-input-group {
+                flex-direction: row;
+                gap: 6px;
+            }
+            .promo-input-group input {
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+            .btn-apply-promo {
+                padding: 0 14px;
+                font-size: 12px;
+                width: auto;
+            }
+            .btn-proceed-payment {
+                padding: 10px 0;
+                font-size: 14px;
+            }
+        }
+
+        /* Checkout Card Body */
+        .checkout-card-body {
+            padding: 44px 30px 24px 30px;
+            text-align: center;
+        }
+
+        .game-title-text {
+            font-size: 22px;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 20px;
+        }
+
+        .details-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: left;
+            margin-bottom: 24px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: #555;
+            padding: 4px 0;
+        }
+
+        .detail-row .val {
+            font-weight: 600;
+            color: #222;
+        }
+
+        .detail-row .val.price-display {
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .original-price-cut {
+            text-decoration: line-through;
+            color: #999;
+            margin-right: 8px;
+            font-size: 13px;
+        }
+
+        .discount-badge-text {
+            color: #e62222;
+            font-weight: 700;
+        }
+
+        /* Promo Code Section */
+        .promo-section {
+            border-top: 1px solid #f0f0f0;
+            padding: 20px 30px;
+            text-align: left;
+        }
+
+        .promo-section label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 8px;
+        }
+
+        .promo-input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .promo-input-group input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1px solid #dcdcdc;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+            text-transform: uppercase;
+        }
+
+        .btn-apply-promo {
+            background-color: #f8a5a5;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            padding: 0 24px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-apply-promo.active {
+            background-color: #e62222;
+        }
+
+        .promo-msg {
+            font-size: 12px;
+            margin-top: 6px;
+            display: none;
+        }
+
+        .promo-msg.success {
+            color: #2e7d32;
+            display: block;
+        }
+
+        .promo-msg.error {
+            color: #d32f2f;
+            display: block;
+        }
+
+        /* User Details Section (First Name, Last Name, Email) */
+        .user-info-section {
+            border-top: 1px solid #f0f0f0;
+            padding: 24px 30px 30px 30px;
+            text-align: left;
+        }
+
+        .name-inputs-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .form-group-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group-field label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        .form-group-field input {
+            padding: 10px 14px;
+            border: 1px solid #dcdcdc;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .form-group-field input:focus {
+            border-color: #e62222;
+        }
+
+        .btn-proceed-payment {
+            width: 100%;
+            background-color: #e62222;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            padding: 14px 0;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            margin-top: 12px;
+            box-shadow: 0 4px 12px rgba(230, 34, 34, 0.3);
+            transition: background 0.2s;
+        }
+
+        .btn-proceed-payment:hover {
+            background-color: #cc1f1f;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fixed Header / Navbar -->
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="brand" style="text-decoration: none;">
+                <img src="images/garena-logoandname.png" alt="Garena Logo" class="brand-logo">
+                <span class="divider">|</span>
+                <span class="brand-subtitle">Official Top Up Center</span>
+            </a>
+            <div class="user-dp-container">
+                <div class="dp-circle">
+                    <img src="images/freefire-game-logo.png" alt="User DP" class="user-dp-img">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="checkout-bg-layer"></div>
+
+    <main class="main-content">
+        <div class="checkout-page-container">
+            <div class="checkout-card">
+                <!-- Banner & Semi-Overlapping Logo -->
+                <div class="checkout-card-header">
+                    <img src="images/buynow-login-card-top-banner.png" alt="Free Fire Banner" class="checkout-top-banner">
+                    <a href="index.html" class="back-nav-btn"><i class="fa-solid fa-chevron-left"></i> Back</a>
+                    <div class="semi-overlap-logo-wrapper">
+                        <img src="images/freefire-game-logo.png" alt="Free Fire Logo">
+                    </div>
+                </div>
+
+                <!-- Purchase Summary Details -->
+                <div class="checkout-card-body">
+                    <h2 class="game-title-text">Free Fire</h2>
+
+                    <div class="details-list">
+                        <div class="detail-row">
+                            <span>Total Amount</span>
+                            <span class="val" id="summaryAmountText">7,130 Diamond</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>Price</span>
+                            <span class="val price-display" id="summaryPriceText">Rs. 10,000</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>Payment Method</span>
+                            <span class="val" id="summaryMethodText">Konnect</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>User ID</span>
+                            <span class="val" id="summaryUserIdText">2312670066</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Promo Code Applying Section (Optional, 5 chars = 10% Discount) -->
+                <div class="promo-section">
+                    <label for="promoCode">Promo Code</label>
+                    <div class="promo-input-group">
+                        <input type="text" id="promoCode" placeholder="Enter promo code here, e.g. PROMO" maxlength="5">
+                        <button class="btn-apply-promo" id="btnApplyPromo">APPLY</button>
+                    </div>
+                    <div class="promo-msg" id="promoMsg"></div>
+                </div>
+
+                <!-- User Details Form (First Name, Last Name, Email) -->
+                <div class="user-info-section">
+                    <div class="name-inputs-row">
+                        <div class="form-group-field">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" placeholder="First Name">
+                        </div>
+                        <div class="form-group-field">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" placeholder="Last Name">
+                        </div>
+                    </div>
+
+                    <div class="form-group-field" style="margin-bottom: 20px;">
+                        <label for="emailAddress">Email Address</label>
+                        <input type="email" id="emailAddress" placeholder="Email Address">
+                    </div>
+
+                    <button class="btn-proceed-payment" id="btnProceedPayment">Proceed to Payment</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <p>&copy; Garena Online. All rights reserved.</p>
+            </div>
+            <div class="footer-right">
+                <a href="faq.html">FAQ</a>
+                <span class="footer-sep">|</span>
+                <a href="help-center.html">Help Center</a>
+                <span class="footer-sep">|</span>
+                <a href="terms.html">Terms and Conditions</a>
+                <span class="footer-sep">|</span>
+                <a href="privacy.html">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Retrieve session data from URL or LocalStorage
+            const params = new URLSearchParams(window.location.search);
+            const itemAmount = params.get('amount') || localStorage.getItem('checkout_amount') || '7,130 Diamond';
+            const itemPrice = parseInt(params.get('price') || localStorage.getItem('checkout_price') || '10000');
+            const method = params.get('method') || localStorage.getItem('checkout_method') || 'Konnect';
+            const userId = params.get('userId') || localStorage.getItem('checkout_userId') || '2312670066';
+
+            let currentPrice = itemPrice;
+            let promoApplied = false;
+
+            document.getElementById('summaryAmountText').textContent = itemAmount;
+            document.getElementById('summaryPriceText').textContent = `Rs. ${currentPrice.toLocaleString()}`;
+            document.getElementById('summaryMethodText').textContent = method;
+            document.getElementById('summaryUserIdText').textContent = userId;
+
+            const promoInput = document.getElementById('promoCode');
+            const btnApplyPromo = document.getElementById('btnApplyPromo');
+            const promoMsg = document.getElementById('promoMsg');
+
+            promoInput.addEventListener('input', () => {
+                if (promoInput.value.trim().length === 5) {
+                    btnApplyPromo.classList.add('active');
+                } else {
+                    btnApplyPromo.classList.remove('active');
+                }
+            });
+
+            btnApplyPromo.addEventListener('click', () => {
+                const code = promoInput.value.trim();
+                if (code.length !== 5) {
+                    promoMsg.className = 'promo-msg error';
+                    promoMsg.textContent = 'Promo code must be exactly 5 characters long.';
+                    return;
+                }
+
+                if (promoApplied) {
+                    promoMsg.className = 'promo-msg error';
+                    promoMsg.textContent = 'Promo code has already been applied.';
+                    return;
+                }
+
+                // Apply 10% discount
+                const discountedPrice = Math.round(itemPrice * 0.9);
+                currentPrice = discountedPrice;
+                promoApplied = true;
+
+                document.getElementById('summaryPriceText').innerHTML = `
+                    <span class="original-price-cut">Rs. ${itemPrice.toLocaleString()}</span>
+                    <span class="discount-badge-text">Rs. ${discountedPrice.toLocaleString()} (10% OFF)</span>
+                `;
+
+                promoMsg.className = 'promo-msg success';
+                promoMsg.textContent = '10% Promo Code discount successfully applied!';
+            });
+
+            // Proceed to Payment Page
+            document.getElementById('btnProceedPayment').addEventListener('click', () => {
+                const fName = document.getElementById('firstName').value.trim();
+                const lName = document.getElementById('lastName').value.trim();
+                const email = document.getElementById('emailAddress').value.trim();
+
+                if (!fName || !lName || !email) {
+                    alert('Please enter your First Name, Last Name, and Email Address.');
+                    return;
+                }
+
+                // Save updated data
+                localStorage.setItem('checkout_final_price', currentPrice);
+                localStorage.setItem('checkout_user_name', `${fName} ${lName}`);
+                localStorage.setItem('checkout_email', email);
+
+                // Redirect to gateway payment page
+                window.location.href = `payment-gateway.html?method=${encodeURIComponent(method)}&price=${currentPrice}&amount=${encodeURIComponent(itemAmount)}`;
+            });
+        });
+    </script>
+</body>
+</html>
