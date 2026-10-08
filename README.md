@@ -88,3 +88,23 @@ This checks image filenames and their capitalization. It does not test image ren
 This frontend practice project was developed with AI assistance. It is presented as a UI recreation and simulated user flow, rather than an original Garena design or a production payment system.
 
 Author: [Muhammad Amir](https://github.com/amirownsthis-code), Data Science student at UET Main Campus Lahore.
+
+## Screenshots
+
+### Homepage
+![Homepage](docs/screenshots/homepage.png)
+
+### Diamond Packages
+![Diamond packages](docs/screenshots/diamond-packages.png)
+
+### Payment Methods
+![Payment methods](docs/screenshots/payment-method.png)
+
+### Checkout
+![Demo checkout](docs/screenshots/checkout.png)
+
+### Demo Payment Gateway
+![Simulated payment gateway](docs/screenshots/payment-details.png)
+
+### Simulated Success Receipt
+![Simulated success receipt](docs/screenshots/payment-successful.png)
